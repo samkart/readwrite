@@ -4,8 +4,8 @@
 #' Exports to CSV, XLS, XLSX files.
 #' It auto detects the file extension in the \code{filepath} or \code{writepath} to read/write the file in your desired extension.
 #' @usage
-#' \code{readwrite(filepath, writepath, varname = TRUE, sheet = 1, skip = 0,
-#'     read = TRUE, write = FALSE)}
+#' readwrite(filepath, writepath, varname = TRUE, sheet = 1, skip = 0,
+#'     read = TRUE, write = FALSE)
 #' @param filepath The path of the file that is to be imported. In case of exporting a file, it is the file that is to be exported.
 #' @param writepath Only when exporting (write = \code{TRUE}). The path where the file is to be exported.
 #' @param varname Default set to \code{TRUE}, suggesting that first row contains variable names. Set to \code{FALSE} if there is no variable name in the first row.
@@ -19,17 +19,19 @@
 #'
 #' The fuction relies on Java (with the same architechture as your R) to export files. Credit goes to the authors of "xlsx" package.
 #' @examples
+#' \donttest{
 #' ##Import
 #' file <- readwrite("C:/Users/Personal/Documents/file.xlsx", varname = TRUE,
 #'     sheet = 2)
 #' ## Export
 #' readwrite(file, "C:/Users/Personal/Documents/filesheet2.xlsx",
 #'     sheet = "sheet name", read = FALSE, write = TRUE)
+#' }
 #' @export
 readwrite <- function(filepath, writepath, varname = TRUE, sheet = 1, skip = 0, read = TRUE, write = FALSE){
   if (read){
     if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "csv"){
-    read.csv(filepath, header = varname, skip = skip)
+    utils::read.csv(filepath, header = varname, skip = skip)
     } else if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "xls" ||
                stringr::str_sub(filepath,(stringr::str_length(filepath)-3),-1) == "xlsx") {
         readxl::read_excel(filepath, sheet = sheet, trim_ws = TRUE, skip = skip, col_names = varname)
@@ -40,7 +42,7 @@ readwrite <- function(filepath, writepath, varname = TRUE, sheet = 1, skip = 0, 
     }
   } else if (write){
     if (stringr::str_sub(writepath,(stringr::str_length(writepath)-2),-1) == "csv"){
-      write.csv(x = filepath, file = writepath)
+      utils::write.csv(x = filepath, file = writepath)
     } else if (stringr::str_sub(writepath,(stringr::str_length(writepath)-2),-1) == "xls" ||
                stringr::str_sub(writepath,(stringr::str_length(writepath)-3),-1) == "xlsx") {
       xlsx::write.xlsx(as.data.frame(filepath), writepath, sheetName = sheet, row.names = FALSE)
