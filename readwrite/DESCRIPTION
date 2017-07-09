@@ -1,0 +1,13 @@
+Package: readwrite
+Type: Package
+Title: Use readwrite to import/export all file extensions
+Version: 0.1.0
+Author: Shubhradeep Majumdar
+Maintainer: Shubhradeep Majumdar <smaj125@gmail.com>
+Description: It is an all-in-one import/export function, capable of importing CSV, XLS, XLSX, DTA, SAS7BDAT files and, exporting CSV, XLS, XLSX files. All thanks to "xlsx" package authors for a significant improvement in exporting excel files over Java environment with "rJava".
+Depends: R (>= 3.2.1)
+Imports: stringr, readxl, haven, xlsx
+License: Apache License 2.0
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
