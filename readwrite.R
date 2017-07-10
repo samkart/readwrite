@@ -1,7 +1,7 @@
 #' @export
 
-readwrite <- function(filepath, writepath, sheet = 1, skip = 0, read/write){
-  if (read/write == "read"){
+readwrite <- function(filepath, writepath, sheet = 1, skip = 0, read_write){
+  if (read_write == "read"){
     if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "csv"){
     read.csv(filepath)
     } else if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "xls" ||
@@ -12,15 +12,15 @@ readwrite <- function(filepath, writepath, sheet = 1, skip = 0, read/write){
     } else if (stringr::str_sub(filepath,(stringr::str_length(filepath)-7),-1) == "sas7bdat"){
       haven::read_sas(filepath)
     }
-  } else if (read/write == "write"){
+  } else if (read_write == "write"){
     if (stringr::str_sub(writepath,(stringr::str_length(writepath)-2),-1) == "csv"){
       write.csv(x = filepath, file = writepath)
     } else if (stringr::str_sub(writepath,(stringr::str_length(writepath)-2),-1) == "xls" ||
                stringr::str_sub(writepath,(stringr::str_length(writepath)-3),-1) == "xlsx") {
       xlsx::write.xlsx(filepath, writepath, sheetName = sheet, row.names = FALSE)
-    } else if (!(read/write == "read") && !(read/write == "write")){
+    } 
+  } else if (!(read_write == "read") && !(read_write == "write")){
       print.noqoute("read/write argument ERROR")
-    }
   }
 }
 
