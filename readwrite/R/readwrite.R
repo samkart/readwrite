@@ -4,14 +4,12 @@
 #' Exports to CSV, XLS, XLSX files.
 #' It auto detects the file extension in the \code{filepath} or \code{writepath} to read/write the file in your desired extension.
 #' @usage
-#' readwrite(filepath, writepath, varname = TRUE, sheet = 1, skip = 0,
-#'     read = TRUE, write = FALSE)
+#' readwrite(filepath, writepath, varname = TRUE, sheet = 1, skip = 0, write = FALSE)
 #' @param filepath The path of the file that is to be imported. In case of exporting a file, it is the file that is to be exported.
 #' @param writepath Only when exporting (write = \code{TRUE}). The path where the file is to be exported.
 #' @param varname Default set to \code{TRUE}, suggesting that first row contains variable names. Set to \code{FALSE} if there is no variable name in the first row.
 #' @param sheet In case of importing an excel file, it refers to the sheet that is to be imported from the file. In case of exporting an excel file, it refers to the name of the sheet (in double quotes) that you would like to give.
 #' @param skip In case of importing an excel file, it refers to the number of rows to be skipped while importing. Starts from 1 which is the second row, as first row is considered as column name, if \code{varname} is set \code{TRUE}.
-#' @param read If importing, set it to \code{TRUE} (default). If exporting, set it to \code{FALSE}.
 #' @param write If importing, set it to \code{FALSE} (default). If exporting, set it to \code{TRUE}.
 #' @details This functions reads CSV, XLS, XSLX, DTA (stata files), SAS7BDAT (sas files), and writes CSV, XLS, XLSX files. Can be used to Import and Export data frames.
 #' @note
@@ -25,11 +23,11 @@
 #'     sheet = 2)
 #' ## Export
 #' readwrite(file, "C:/Users/Personal/Documents/filesheet2.xlsx",
-#'     sheet = "sheet name", read = FALSE, write = TRUE)
+#'     sheet = "sheet name", write = TRUE)
 #' }
 #' @export
-readwrite <- function(filepath, writepath, varname = TRUE, sheet = 1, skip = 0, read = TRUE, write = FALSE){
-  if (read){
+readwrite <- function(filepath, writepath, varname = TRUE, sheet = 1, skip = 0, write = FALSE){
+  if (!write){
     if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "csv"){
     utils::read.csv(filepath, header = varname, skip = skip)
     } else if (stringr::str_sub(filepath,(stringr::str_length(filepath)-2),-1) == "xls" ||
